@@ -7,6 +7,25 @@
     try { window.top.location.replace(window.location.href); } catch (e) { document.documentElement.hidden = true; }
   }
 
+  // Google AdSense: same ad units as the Mechanical Workshop site. Empty slot = that ad space is removed.
+  // Student site: ask Google for its under-18 ("teen") treatment (0 = none, 1 = child, 2 = teen).
+  const ADS = { client: 'ca-pub-7727895345119500', ageTreatment: '2',
+    slots: { article: '1281073793', end: '6888623694', home: '7710750771' } };
+  document.querySelectorAll('.ad[data-ad]').forEach((box) => {
+    const slot = ADS.slots[box.dataset.ad];
+    if (!slot) { box.remove(); return; }
+    const ins = document.createElement('ins');
+    ins.className = 'adsbygoogle';
+    ins.style.display = 'block';
+    Object.entries({ 'data-ad-client': ADS.client, 'data-ad-slot': slot, 'data-ad-format': 'auto',
+      'data-full-width-responsive': 'true', 'data-tag-for-age-treatment': ADS.ageTreatment })
+      .forEach(([k, v]) => ins.setAttribute(k, v));
+    box.appendChild(ins);
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch { box.remove(); }
+    // Ad blocked or no ad: remove the empty space after 8 s
+    setTimeout(() => { if (!ins.getAttribute('data-ad-status') && !ins.querySelector('iframe')) box.remove(); }, 8000);
+  });
+
   // Footer year follows the visitor's clock (the page already shows the build year without JavaScript).
   document.getElementById('year-now').textContent = new Date().getFullYear();
 

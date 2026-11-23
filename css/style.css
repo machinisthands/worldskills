@@ -367,3 +367,11 @@ html.sheet-open { overflow: hidden; }
 .cmt-status { font-size: .85rem; color: var(--copper-light); }
 .cmt-status:empty { display: none; }
 @media print { .cmt-teaser, .sheet { display: none !important; } }
+
+/* ---- Ads (Google AdSense): clearly labelled, away from buttons and the 3D viewer, space reserved ---- */
+.ad { margin: 32px 0; padding: 10px 0 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
+.ad-label { margin: 0 0 8px; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.ad ins.adsbygoogle { min-height: 100px; }
+.ad:has(ins.adsbygoogle[data-ad-status="unfilled"]) { display: none; }
+@media print { .ad { display: none !important; } }
+

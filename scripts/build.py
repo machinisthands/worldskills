@@ -160,17 +160,19 @@ years = sorted({p["year"] for p in projects})
 medallists = json.loads(read("data", "medallists.json"))
 CSS = inline_css()
 # Content Security Policy (GitHub Pages cannot send headers, so it goes in a <meta> tag).
-# The inline <style> is allowed by its hash; scripts only from this site, plus Google's sign-in scripts.
+# Google AdSense: Google publishes no list of ad domains (they change over time) and only supports a
+# per-request nonce, which a static GitHub Pages site cannot make. So scripts, frames and connections
+# are allowed from any https: address, with inline/eval as in Google's documented AdSense policy.
+# Still blocked: plugins (object-src), <base> changes and form posts.
 FIREBASE_AUTH_DOMAIN = "worldskills-like-dislike-share.firebaseapp.com"
 CSP = "; ".join([
     "default-src 'self'",
-    "script-src 'self' 'wasm-unsafe-eval' https://apis.google.com https://www.gstatic.com",
-    "style-src 'self' 'sha256-" + base64.b64encode(hashlib.sha256(CSS.encode()).digest()).decode() + "'",
-    "img-src 'self' data: blob: https://*.googleusercontent.com https://www.google.com https://www.gstatic.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https:",
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https:",
     "font-src 'self'",
-    "connect-src 'self' https://firestore.googleapis.com https://identitytoolkit.googleapis.com "
-    "https://securetoken.googleapis.com https://www.googleapis.com",
-    f"frame-src https://{FIREBASE_AUTH_DOMAIN} https://apis.google.com https://accounts.google.com",
+    "connect-src 'self' https:",
+    "frame-src https:",
     "worker-src 'self' blob:",
     "manifest-src 'self'",
     "object-src 'none'",
