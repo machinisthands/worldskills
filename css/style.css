@@ -166,6 +166,9 @@ h1 { font-size: clamp(2.1rem, 5vw, 3.2rem); }
 .site-footer a:hover { color: var(--heading); }
 .site-footer .footer-credit { font-weight: 600; }
 .site-footer .footer-credit a { text-decoration: none; }
+/* About · Contact · Privacy · Disclaimer: same row as on the Mechanical Workshop pages */
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; margin-bottom: 8px; }
+.site-footer .footer-links a { font-weight: 600; text-decoration: none; }
 
 /* Respect reduced-motion settings */
 @media (prefers-reduced-motion: reduce) {
