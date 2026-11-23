@@ -9,7 +9,7 @@ service cloud.firestore {
         && request.auth.token.email_verified == true;
     }
     function validPage(p) {
-      return p is string && p.matches('index|worldskills-[0-9]{4}-test-project-[0-9]');
+      return p is string && p.matches('index|home|worldskills-[0-9]{4}-test-project-[0-9]|workshop-[A-Za-z]+');
     }
 
     // ---- Views, likes, dislikes: +1 view; +1/-1 like or dislike; or switch like <-> dislike. Never below 0.
